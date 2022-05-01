@@ -23,9 +23,43 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+let minesweeper = (matrix) => {
+  let field = [];
+  for (let i = 0; i < matrix.length; i++) {
+    let row = [];
+
+    for (let k = 0; k < matrix[i].length; k++) {
+      let beforeElem = matrix[i][k - 1] ? 1 : 0;
+      let nextElem = matrix[i][k + 1] ? 1 : 0;
+      let diagonalUpLeftElem = 0;
+      let upElem = 0;
+      let diagonalUpRightElem = 0;
+      let diagonalDownLeftElem = 0;
+      let downElem = 0;
+      let diagonalDownRightElem = 0;
+      let counter = 0;
+
+      if (matrix[i - 1]) {
+        diagonalUpLeftElem = matrix[i - 1][k - 1] ? 1 : 0;
+        upElem = matrix[i - 1][k] ? 1 : 0;
+        diagonalUpRightElem = matrix[i - 1][k + 1] ? 1 : 0;
+      }
+
+      if (matrix[i + 1]) {
+        diagonalDownLeftElem = matrix[i + 1][k - 1] ? 1 : 0;
+        downElem = matrix[i + 1][k] ? 1 : 0;
+        diagonalDownRightElem = matrix[i + 1][k + 1] ? 1 : 0;
+      }
+    
+      counter = beforeElem + nextElem + diagonalUpRightElem + diagonalUpLeftElem + upElem + diagonalDownRightElem + diagonalDownLeftElem + downElem;
+      row.push(counter);
+      
+    }
+
+    field.push(row);
+  }
+
+  return field;
 }
 
 module.exports = {
